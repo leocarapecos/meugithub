@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(){
+    const xhttp = new XMLHttpRequest();
 
     const avatar = document.querySelector('#avatar');
     const nome = document.querySelector('#nome');
@@ -7,8 +8,12 @@ document.addEventListener('DOMContentLoaded', function(){
     const seguidores = document.querySelector('#seguidores');
     const seguindo = document.querySelector('#seguindo');
     const link = document.querySelector('#profile-link');
-
-    fetch('https://api.github.com/users/leocarapecos')
+    const endpoint = 'https://api.github.com/users/leocarapecos'
+    
+    xhttp.open('Get', endpoint);
+    xhttp.send();
+    
+    fetch(endpoint)
         .then(function(res){
             return res.json();
         })
@@ -21,5 +26,9 @@ document.addEventListener('DOMContentLoaded', function(){
             seguindo.innerText = json.following
             link.href = json.html_url
         })
+        .catch(function(erro){
+            alert("Ocorreu um erro, porfavor tente novamente mais tarde.")
+        })
+        
 })
 
